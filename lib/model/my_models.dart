@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-enum Cinsiyet { KADIN, ERKEK, DIGER }
+enum Cinsiyet { kadin, erkek, diger }
 
-enum Renkler { SARI, MAVI, YESIL, PEMBE, KIRMIZI, MOR }
+enum Renkler { sari, mavi, yesil, pembe, kirmizi, mor }
 
 class UserInformation {
   final String isim;

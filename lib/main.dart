@@ -8,9 +8,8 @@ import 'shared_pref_kullanimi.dart';
 final locator = GetIt.instance;
 
 void setup() {
-  locator.registerSingleton<LocalStorageService>(SharedPreferenceService());
-  locator
-      .registerLazySingleton<LocalStorageService>(() => SecureStorageService());
+  //locator.registerSingleton<LocalStorageService>(SharedPreferenceService());
+  locator.registerLazySingleton<LocalStorageService>(()=> SecureStorageService());
 }
 
 void main() {
@@ -41,6 +40,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: const Text('Flutter Storage Islemleri'),
       ),
@@ -54,10 +54,11 @@ class MyHomePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            const SharedPreferenceKullanimi()));
+                        const SharedPreferenceKullanimi()));
               },
               child: const Text('Shared Preference / Secure Storage Kullanımı'),
-            ),
+              style: ElevatedButton.styleFrom(primary: Colors.red),
+            )
           ],
         ),
       ),

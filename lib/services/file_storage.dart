@@ -38,6 +38,6 @@ class FileStorageService implements LocalStorageService {
     } catch (e) {
       //debugPrint(e.toString());
     }
-    return UserInformation('', Cinsiyet.KADIN, [], false);
+    return UserInformation('', Cinsiyet.kadin, [], false);
   }
 }

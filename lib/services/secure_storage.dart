@@ -14,8 +14,8 @@ class SecureStorageService implements LocalStorageService {
 
   @override
   Future<void> verileriKaydet(UserInformation userInformation) async {
-    final _name = userInformation.isim;
-    await preferences.write(key: 'isim', value: _name);
+    final name = userInformation.isim;
+    await preferences.write(key: 'isim', value: name);
     await preferences.write(
         key: 'ogrenci', value: userInformation.ogrenciMi.toString());
     await preferences.write(
@@ -26,24 +26,24 @@ class SecureStorageService implements LocalStorageService {
 
   @override
   Future<UserInformation> verileriOku() async {
-    var _isim = await preferences.read(key: 'isim') ?? '';
+    var isim = await preferences.read(key: 'isim') ?? '';
 
-    var _ogrenciString =
+    var ogrenciString =
         await preferences.read(key: 'ogrenci') ?? 'false'; // 'true' / 'false'
 
-    var _ogrenci = _ogrenciString.toLowerCase() == 'true' ? true : false;
+    var ogrenci = ogrenciString.toLowerCase() == 'true' ? true : false;
 
-    var _cinsiyetString =
+    var cinsiyetString =
         await preferences.read(key: 'cinsiyet') ?? '0'; // '0', '1', '2'
 
-    var _cinsiyet = Cinsiyet.values[int.parse(_cinsiyetString)];
+    var cinsiyet = Cinsiyet.values[int.parse(cinsiyetString)];
 
-    var _renklerString = await preferences.read(key: 'renkler');
+    var renklerString = await preferences.read(key: 'renkler');
 
-    var _renkler = _renklerString == null
+    var renkler = renklerString == null
         ? <String>[]
-        : List<String>.from(jsonDecode(_renklerString));
+        : List<String>.from(jsonDecode(renklerString));
 
-    return UserInformation(_isim, _cinsiyet, _renkler, _ogrenci);
+    return UserInformation(isim, cinsiyet, renkler, ogrenci);
   }
 }

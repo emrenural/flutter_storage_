@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_storage/main.dart';
 import 'package:flutter_storage/model/my_models.dart';
+import 'package:flutter_storage/services/shared_pref_service.dart';
 import 'services/local_storage_service.dart';
 
 class SharedPreferenceKullanimi extends StatefulWidget {
@@ -13,12 +14,11 @@ class SharedPreferenceKullanimi extends StatefulWidget {
 }
 
 class _SharedPreferenceKullanimiState extends State<SharedPreferenceKullanimi> {
-  var _secilenCinsiyet = Cinsiyet.KADIN;
+  var _secilenCinsiyet = Cinsiyet.kadin;
   var _secilenRenkler = <String>[];
   var _ogrenciMi = false;
   final TextEditingController _nameController = TextEditingController();
   final LocalStorageService _preferenceService = locator<LocalStorageService>();
-
   /* final LocalStorageService _preferenceService2 = SharedPreferenceService();
   final LocalStorageService _preferenceService3 = FileStorageService(); */
 
@@ -26,10 +26,12 @@ class _SharedPreferenceKullanimiState extends State<SharedPreferenceKullanimi> {
   void initState() {
     super.initState();
     _verileriOku();
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('SharedPreference Kullanımı'),
@@ -55,10 +57,10 @@ class _SharedPreferenceKullanimiState extends State<SharedPreferenceKullanimi> {
               }),
           TextButton(
               onPressed: () {
-                var userInformation = UserInformation(_nameController.text,
+                var _userInformation = UserInformation(_nameController.text,
                     _secilenCinsiyet, _secilenRenkler, _ogrenciMi);
 
-                _preferenceService.verileriKaydet(userInformation);
+                _preferenceService.verileriKaydet(_userInformation);
               },
               child: const Text('Kaydet'))
         ],
@@ -96,11 +98,10 @@ class _SharedPreferenceKullanimiState extends State<SharedPreferenceKullanimi> {
 
   void _verileriOku() async {
     var info = await _preferenceService.verileriOku();
-    setState(() {
-      _nameController.text = info.isim;
-      _secilenCinsiyet = info.cinsiyet;
-      _secilenRenkler = info.renkler;
-      _ogrenciMi = info.ogrenciMi;
-    });
+    _nameController.text = info.isim;
+    _secilenCinsiyet = info.cinsiyet;
+    _secilenRenkler = info.renkler;
+    _ogrenciMi = info.ogrenciMi;
+    setState(() {});
   }
 }
